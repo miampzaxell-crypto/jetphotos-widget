@@ -1,0 +1,82 @@
+<div id="jetphotos-widget" style="text-align:center; font-family: Arial, sans-serif; max-width: 700px; margin:auto;">
+    <h3>William Axell on JetPhotos</h3>
+    <p>Aircraft photographer based in Gothenburg, Sweden</p>
+
+    <div id="photo-carousel" style="position: relative; overflow: hidden; display: flex; gap:10px; justify-content: center; flex-wrap: nowrap; scroll-behavior: smooth;">
+        <!-- Photos will be dynamically added here -->
+    </div>
+
+    <!-- Navigation buttons -->
+    <button id="prevBtn" style="margin-top:10px; padding:5px 10px;">&#10094; Prev</button>
+    <button id="nextBtn" style="margin-top:10px; padding:5px 10px;">Next &#10095;</button>
+
+    <a href="https://www.jetphotos.com/photographer/443690" 
+       target="_blank" 
+       style="text-decoration:none; color:white; background-color:#0073e6; padding:8px 15px; border-radius:5px; display:inline-block; margin-top:10px;">
+       View Full Profile
+    </a>
+
+    <p style="margin-top:10px; font-size:14px; color:#555;">
+        Camera gear: Canon EOS 500D, Canon EOS 1DX Mark II, Tamron SP 150-600mm
+    </p>
+</div>
+
+<script>
+    // Photo list - update URLs or add new photos here
+    const photos = [
+        {url: "https://cdn.jetphotos.com/thumbs/large/11869504.jpg", link: "https://www.jetphotos.com/photo/11869504", alt: "Lufthansa A319"},
+        {url: "https://cdn.jetphotos.com/thumbs/large/11869488.jpg", link: "https://www.jetphotos.com/photo/11869488", alt: "Dash 8 Q311"},
+        {url: "https://cdn.jetphotos.com/thumbs/large/11869510.jpg", link: "https://www.jetphotos.com/photo/11869510", alt: "Air Baltic A220"}
+    ];
+
+    const carousel = document.getElementById('photo-carousel');
+
+    photos.forEach(photo => {
+        const a = document.createElement('a');
+        a.href = photo.link;
+        a.target = "_blank";
+        a.style.position = "relative";
+
+        const img = document.createElement('img');
+        img.src = photo.url;
+        img.alt = photo.alt;
+        img.style.width = "200px";
+        img.style.height = "auto";
+        img.style.borderRadius = "5px";
+        img.style.border = "1px solid #ccc";
+        img.style.transition = "transform 0.3s";
+        
+        // Hover effect
+        img.onmouseover = () => img.style.transform = "scale(1.05)";
+        img.onmouseout = () => img.style.transform = "scale(1)";
+
+        // Caption overlay
+        const caption = document.createElement('div');
+        caption.innerText = photo.alt;
+        caption.style.position = "absolute";
+        caption.style.bottom = "5px";
+        caption.style.left = "50%";
+        caption.style.transform = "translateX(-50%)";
+        caption.style.backgroundColor = "rgba(0,0,0,0.6)";
+        caption.style.color = "#fff";
+        caption.style.padding = "3px 6px";
+        caption.style.borderRadius = "4px";
+        caption.style.fontSize = "12px";
+        caption.style.opacity = "0";
+        caption.style.transition = "opacity 0.3s";
+        a.onmouseover = () => caption.style.opacity = "1";
+        a.onmouseout = () => caption.style.opacity = "0";
+
+        a.appendChild(img);
+        a.appendChild(caption);
+        carousel.appendChild(a);
+    });
+
+    // Carousel scroll buttons
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    const scrollAmount = 220; // adjust for image width + gap
+    prevBtn.onclick = () => carousel.scrollBy({left: -scrollAmount, behavior: 'smooth'});
+    nextBtn.onclick = () => carousel.scrollBy({left: scrollAmount, behavior: 'smooth'});
+</script>
