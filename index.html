@@ -3,156 +3,199 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>William Axell | JetPhotos</title>
+<title>William Axell | Portfolio</title>
 <style>
-    /* Reset & body styling */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background-color: #1c1c1c;
-        color: #f5f5f5;
-        display: flex;
-        justify-content: center;
-        padding: 40px 10px;
-    }
+/* Reset & body */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body, html {
+    height: 100%;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #fff;
+}
 
-    /* Main widget container */
-    #jetphotos-widget {
-        max-width: 900px;
-        width: 100%;
-        background-color: #2a2a2a;
-        padding: 30px 20px;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-        text-align: center;
-    }
+/* Background image with dark overlay */
+body {
+    background: 
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url('https://previews.dropbox.com/p/thumb/AC3gAnv5wYwTTY0QNzcttQVi3seZW6sqiTWp4lmz8YrPq4voV9F0G0lxM6ZpUFmJSXrPQWZ7qO3ze_J4-KdZFHkpelhYRfxxTNTo4mRF6ckKTVpaIB8Kabu6zI4ipk5psDKbudN6Io2-3QsIU9hSCYJJ_80DtCvhsicfYyxY5jW2t_cIvs2j27flRIDSr-zBJ6Z3nUpnqDytdPPrS-xJ47Volc5lgfUHhx0CkNy0OrDVH4s-prBWJwnNaJTObyfc015Weu2208vOcbC1EhKhnvSuIL9vFIfaCrsSG9cAz2Hw8o79GrqMuh-zOz5Ufl9Dub8/p.jpeg') no-repeat center center fixed;
+    background-size: cover;
+}
 
-    h3 {
-        font-size: 2em;
-        margin-bottom: 10px;
-        color: #fff;
-    }
+/* Container */
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 20px;
+}
 
-    p.subtitle {
-        color: #ccc;
-        margin-bottom: 25px;
-        font-size: 1.1em;
-    }
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+header h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+header p {
+    color: #ccc;
+    font-size: 1.2em;
+}
 
-    /* Carousel styling */
-    #photo-carousel {
-        display: flex;
-        overflow-x: auto;
-        scroll-behavior: smooth;
-        gap: 20px;
-        padding-bottom: 15px;
-    }
-    #photo-carousel a {
-        position: relative;
-        flex: 0 0 auto;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-    #photo-carousel img {
-        width: 240px;
-        height: auto;
-        border-radius: 10px;
-        transition: transform 0.3s, filter 0.3s;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-        filter: brightness(0.95);
-    }
-    #photo-carousel img:hover {
-        transform: scale(1.07);
-        filter: brightness(1);
-    }
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.tab-btn {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    padding: 10px 25px;
+    margin: 0 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+.tab-btn.active, .tab-btn:hover { background: rgba(255,255,255,0.3); }
 
-    /* Captions */
-    #photo-carousel div.caption {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        background: rgba(0,0,0,0.7);
-        color: #fff;
-        padding: 6px 0;
-        font-size: 13px;
-        font-weight: 500;
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
-    #photo-carousel a:hover div.caption {
-        opacity: 1;
-    }
+/* Tab content */
+.tab-content {
+    display: none;
+    background: rgba(0,0,0,0.5);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
 
-    /* Buttons */
-    button {
-        padding: 10px 18px;
-        margin: 15px 10px 10px 10px;
-        border-radius: 5px;
-        border: none;
-        background-color: #ff6600;
-        color: #fff;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        transition: background-color 0.3s;
-    }
-    button:hover { background-color: #e55a00; }
+/* Show active tab */
+.tab-content.active { display: block; }
 
-    /* Profile link */
-    .profile-link {
-        display: inline-block;
-        margin-top: 15px;
-        text-decoration: none;
-        color: #fff;
-        background-color: #0073e6;
-        padding: 12px 22px;
-        border-radius: 6px;
-        font-weight: bold;
-        transition: background-color 0.3s;
-    }
-    .profile-link:hover { background-color: #005bb5; }
+/* Carousel styling */
+#photo-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding-bottom: 15px;
+}
+#photo-carousel a {
+    position: relative;
+    flex: 0 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#photo-carousel img {
+    width: 240px;
+    border-radius: 10px;
+    transition: transform 0.3s, filter 0.3s;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    filter: brightness(0.9);
+}
+#photo-carousel img:hover { transform: scale(1.07); filter: brightness(1); }
+#photo-carousel div.caption {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    padding: 6px 0;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+#photo-carousel a:hover div.caption { opacity: 1; }
 
-    /* Camera gear text */
-    .gear-text {
-        margin-top: 20px;
-        font-size: 14px;
-        color: #bbb;
-    }
+/* Buttons */
+button {
+    padding: 8px 15px;
+    margin: 10px 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: #ff6600;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+button:hover { background-color: #e55a00; }
 
-    /* Hide scrollbar */
-    #photo-carousel::-webkit-scrollbar { display: none; }
-    #photo-carousel { -ms-overflow-style: none; scrollbar-width: none; }
+/* Profile link */
+.profile-link {
+    display: inline-block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #0073e6;
+    padding: 12px 22px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.profile-link:hover { background-color: #005bb5; }
 
-    @media (max-width: 600px) {
-        #photo-carousel img { width: 180px; }
-    }
+/* About text */
+.about p { color: #ddd; line-height: 1.6; margin-bottom: 15px; }
+.gear-text { color: #bbb; font-size: 14px; margin-top: 10px; }
+
+/* Responsive */
+@media (max-width: 600px) { #photo-carousel img { width: 180px; } }
 </style>
 </head>
 <body>
-<div id="jetphotos-widget">
-    <h3>William Axell</h3>
-    <p class="subtitle">Aircraft photographer based in Gothenburg, Sweden</p>
 
-    <div id="photo-carousel">
-        <!-- Photos inserted by JS -->
-    </div>
+<div class="container">
 
+<header>
+    <h1>William Axell</h1>
+    <p>Aircraft photographer based in Gothenburg, Sweden</p>
+</header>
+
+<div class="tabs">
+    <div class="tab-btn active" data-tab="info">Info</div>
+    <div class="tab-btn" data-tab="portfolio">Portfolio</div>
+</div>
+
+<section id="info" class="tab-content active about">
+    <h2>About Me</h2>
+    <p>Hello! I’m William Axell, a passionate aviation photographer from Gothenburg. I specialize in capturing aircraft in-flight and on the tarmac, focusing on composition, lighting, and the beauty of aviation.</p>
+    <p>I enjoy sharing my photos online and connecting with other aviation enthusiasts and photographers.</p>
+    <p class="gear-text">Camera gear: Canon EOS 500D, Canon EOS 1DX Mark II, Tamron SP 150-600mm</p>
+</section>
+
+<section id="portfolio" class="tab-content">
+    <h2>Portfolio</h2>
+    <div id="photo-carousel"></div>
     <div>
         <button id="prevBtn">&#10094; Prev</button>
         <button id="nextBtn">Next &#10095;</button>
     </div>
-
     <a href="https://www.jetphotos.com/photographer/443690" target="_blank" class="profile-link">
         View Full Profile
     </a>
+</section>
 
-    <p class="gear-text">
-        Camera gear: Canon EOS 500D, Canon EOS 1DX Mark II, Tamron SP 150-600mm
-    </p>
 </div>
 
 <script>
+// Tab functionality
+const tabButtons = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+
+tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        tabButtons.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+});
+
+// Carousel photos
 const photos = [
     {url: "https://cdn.jetphotos.com/thumbs/large/11869504.jpg", link: "https://www.jetphotos.com/photo/11869504", alt: "Lufthansa A319"},
     {url: "https://cdn.jetphotos.com/thumbs/large/11869488.jpg", link: "https://www.jetphotos.com/photo/11869488", alt: "Dash 8 Q311"},
@@ -164,24 +207,23 @@ photos.forEach(photo => {
     const a = document.createElement('a');
     a.href = photo.link;
     a.target = "_blank";
-
     const img = document.createElement('img');
     img.src = photo.url;
     img.alt = photo.alt;
-
     const caption = document.createElement('div');
     caption.className = "caption";
     caption.innerText = photo.alt;
-
     a.appendChild(img);
     a.appendChild(caption);
     carousel.appendChild(a);
 });
 
-// Carousel buttons
-const scrollAmount = 260; // width + gap
+// Carousel scroll buttons
+const scrollAmount = 260;
 document.getElementById('prevBtn').onclick = () => carousel.scrollBy({left: -scrollAmount, behavior: 'smooth'});
 document.getElementById('nextBtn').onclick = () => carousel.scrollBy({left: scrollAmount, behavior: 'smooth'});
 </script>
+
 </body>
 </html>
+
